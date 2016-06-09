@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{title.index}">[Static.proto] header</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/css/affablebean.css" th:href="@{/static/css/affablebean.css}"/>
+    <link rel="shortcut icon" th:href="@{/static/img/favicon.ico}">
+</head>
+<body>
+
+<header th:fragment="header" id="header" class="alt">
+        <div id="widgetBar">
+
+            <div class="headerWidget">
+                [ language toggle ]
+            </div>
+
+            <div class="headerWidget">
+                [ checkout button ]
+            </div>
+
+            <div class="headerWidget">
+                [ shopping cart widget ]
+            </div>
+
+        </div>
+
+        <a th:href="@{/}">
+            <img id="logo" th:src="@{/static/img/logo.png}"
+                 title="Affable Bean logo">
+        </a>
+
+        <img id="logoText" th:src="@{/static/img/logoText.png}"
+             title="the affable bean">
+
+</header>
+
+</body>
+</html>
+

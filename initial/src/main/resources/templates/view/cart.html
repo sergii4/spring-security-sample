@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="#{title.index}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/css/styles.css" th:href="@{/static/css/affablebean.css}"/>
+</head>
+
+<body>
+
+<div id="main">
+
+    <div th:replace="fragments/header :: header">[Static.proto] ...</div>
+
+    <div id="singleColumn">
+
+        <div th:if="${cart['numberOfItems'] > 1}"> <!-- if customer is anonymous-->
+            <p th:text="${'Your shopping cart contains ' + cart['numberOfItems'] + ' items.'}"></p>
+        </div>
+
+        <div th:if="${cart['numberOfItems'] == 1}"> <!-- if customer is not anonymous(logged in)-->
+            <p th:text="${'Your shopping cart contains ' + cart['numberOfItems'] + ' item.'}"></p>
+        </div>
+
+        <!--<div id="actionBar">
+            <%&#45;&#45; clear cart widget &#45;&#45;%>
+            <c:if test="${!empty cart && cart.numberOfItems != 0}">
+
+                <c:url var="url" value="viewCart">
+                    <c:param name="clear" value="true"/>
+                </c:url>
+
+                <a href="${url}" class="bubble hMargin">clear cart</a>
+            </c:if>
+
+            <%&#45;&#45; continue shopping widget &#45;&#45;%>
+            <c:set var="value">
+                <c:choose>
+                    <%&#45;&#45; if 'selectedCategory' session object exists, send user to previously viewed category &#45;&#45;%>
+                    <c:when test="${!empty selectedCategory}">
+                        category
+                    </c:when>
+                    <%&#45;&#45; otherwise send user to welcome page &#45;&#45;%>
+                    <c:otherwise>
+                        index.jsp
+                    </c:otherwise>
+                </c:choose>
+            </c:set>
+
+            <c:url var="url" value="${value}"/>
+            <a href="${url}" class="bubble hMargin">continue shopping</a>
+
+            <%&#45;&#45; checkout widget &#45;&#45;%>
+            <c:if test="${!empty cart && cart.numberOfItems != 0}">
+                <a href="<c:url value='checkout'/>" class="bubble hMargin">proceed to checkout &#x279f;</a>
+            </c:if>
+        </div>
+
+        <c:if test="${!empty cart && cart.numberOfItems != 0}">
+
+            <h4 id="subtotal">subtotal: &euro; ${cart.subtotal}</h4>
+
+            <table id="cartTable">
+
+                <tr class="header">
+                    <th>product</th>
+                    <th>name</th>
+                    <th>price</th>
+                    <th>quantity</th>
+                </tr>
+
+                <c:forEach var="cartItem" items="${cart.items}" varStatus="iter">
+
+                    <c:set var="product" value="${cartItem.product}"/>
+
+                    <tr class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}">
+                        <td>
+                            <img src="${initParam.productImagePath}${product.name}.png"
+                                 alt="${product.name}">
+                        </td>
+
+                        <td>${product.name}</td>
+
+                        <td>
+                            &euro; ${cartItem.total}
+                            <br>
+                            <span class="smallText">( &euro; ${product.price} / unit )</span>
+                        </td>
+
+                        <td>
+                            <form action="<c:url value='updateCart'/>" method="post">
+                                <input type="hidden"
+                                       name="productId"
+                                       value="${product.id}">
+                                <input type="text"
+                                       maxlength="2"
+                                       size="2"
+                                       value="${cartItem.quantity}"
+                                       name="quantity"
+                                       style="margin:5px">
+                                <input type="submit"
+                                       name="submit"
+                                       value="update">
+                            </form>
+                        </td>
+                    </tr>
+
+                </c:forEach>
+
+            </table>
+
+        </c:if>-->
+    </div>
+    <div th:replace="fragments/footer :: footer">[Static.proto] ...</div>
+</div>
+
+</body>
+
+</html>
