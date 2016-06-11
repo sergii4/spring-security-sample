@@ -280,6 +280,11 @@ label.error {
     margin: 30px;
     width: 750px;
     text-align: center;
+    display: inline;
+}
+#actionBar ul{
+    display: inline-flex;
+    list-style-type: none;
 }
 
 #subtotal { margin: 40px 0 20px 430px }

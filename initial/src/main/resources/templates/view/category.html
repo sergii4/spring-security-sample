@@ -18,7 +18,8 @@
 
     <div id="categoryLeftColumn">
         <div th:each="category,iterStat : ${application.categories}" >
-            <a th:href="@{|/category?id=${category['id']}}" class="categoryButton">
+            <a th:href="@{|/category?id=${category['id']}}" class="categoryButton"
+               th:id="${category['id'] == selectedCategory['id'] ? 'selectedCategory' : ''}">
                 <span class="categoryText" th:text="${category['name']}"></span>
             </a>
         </div>
@@ -27,17 +28,18 @@
     <div id="categoryRightColumn">
         <p id="categoryTitle" th:text="${selectedCategory['name']}">[ selected category ]</p>
         <table id="productTable">
-            <tr th:each="product,iterationStatus : ${products}">
-                <td class="lightBlue">
+            <tr th:each="product,iter : ${products}"
+                th:class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}">
+                <td>
                     <img th:src="@{|/static/${@environment.getProperty('productImagePath')}/${product['name']}.png|}"
                          th:alt-title="${product['name']}">
                 </td>
-                <td class="lightBlue" th:text="${product['name']}">
+                <td th:text="${product['name']}">
                     [ product name ]
                     <br>
                     <span class="smallText" th:text="${product['description']}">[ product description ]</span>
                 </td>
-                <td class="lightBlue" th:text="${product['price']}">[ price ]</td>
+                <td th:text="${product['price']}">[ price ]</td>
                 <td>
                     <form th:action="@{/addToCart}" action="/addToCart" method="post">
                         <input type="hidden"

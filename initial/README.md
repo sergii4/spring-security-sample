@@ -3,7 +3,11 @@
 - [x] DB config
 - [x] Use Thymleaf
 - [ ] Fix UI stuff - css, etc
-- [ ] Use Spring MVC
+    - [x] Bug with selected category
+    - [x] Bug with cart
+    - [ ] Fix euro index
+- [x] Use Spring MVC
+- [ ] Session support
 
 ## Technology basis
 * Spring Boot as microservice framework
