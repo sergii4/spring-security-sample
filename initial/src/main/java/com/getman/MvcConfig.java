@@ -1,6 +1,8 @@
 package com.getman;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +21,9 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 
     private ApplicationContext applicationContext;
 
+    @Autowired
+    private ThymeleafProperties properties;
+
     public void setApplicationContext(ApplicationContext applicationContext) throws
             BeansException {
         this.applicationContext = applicationContext;
@@ -36,7 +41,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(applicationContext);
-        templateResolver.setPrefix("classpath:/templates/");
+        templateResolver.setPrefix(properties.getPrefix());
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         return templateResolver;
@@ -54,6 +59,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public ThymeleafViewResolver viewResolver() {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setCache(properties.isCache()); //disable page caching
         return viewResolver;
     }
     @Override
@@ -71,6 +77,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         registry
                 .addResourceHandler(STATIC_RESOURCES_PATTERN)
                 .addResourceLocations("classpath:/static/");
+    }
+
+    @Bean
+    public ThymeleafProperties properties() {
+        return new ThymeleafProperties();
     }
 
 }

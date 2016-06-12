@@ -22,7 +22,7 @@ public class ShoppingCart {
     double total;
 
     public ShoppingCart() {
-        items = new ArrayList<ShoppingCartItem>();
+        items = new ArrayList<>();
         numberOfItems = 0;
         total = 0;
     }

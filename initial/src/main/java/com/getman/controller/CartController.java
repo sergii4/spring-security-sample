@@ -52,6 +52,6 @@ public class CartController {
         }
         Product product = productService.retrieveProductById(productId);
         cart.addItem(product);
-        return "view/cart";
+        return "redirect:viewCart";
     }
 }

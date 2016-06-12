@@ -1,13 +1,20 @@
-### Run application as Spring MVC on Srping boot with Thymleaf
+### Run application as Spring MVC on Srping boot with Thymeleaf
 
 - [x] DB config
 - [x] Use Thymleaf
-- [ ] Fix UI stuff - css, etc
+- [ ] Fix UI stuff - css, etc, spring attributes
     - [x] Bug with selected category
     - [x] Bug with cart
+    - [x] Bug with post adding product
     - [ ] Fix euro index
+    - [ ] checkout page 
+    - [ ] confirmation page 
+    - [ ] bug with null cart
+    - [ ] hide all message to properties file
 - [x] Use Spring MVC
 - [ ] Session support
+    - [x] save attributes to session
+    - [ ] session timeout
 
 ## Technology basis
 * Spring Boot as microservice framework
