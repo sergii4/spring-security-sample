@@ -11,10 +11,16 @@
     - [ ] confirmation page 
     - [ ] bug with null cart
     - [ ] hide all message to properties file
+    - [x] update cart
 - [x] Use Spring MVC
 - [ ] Session support
     - [x] save attributes to session
     - [ ] session timeout
+    - [ ] Order manager
+- [ ] Test Coverage
+    - [ ] controller level 
+    - [ ] service level 
+    - [ ] repository level 
 
 ## Technology basis
 * Spring Boot as microservice framework

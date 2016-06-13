@@ -29,7 +29,7 @@
         <p id="categoryTitle" th:text="${selectedCategory['name']}">[ selected category ]</p>
         <table id="productTable">
             <tr th:each="product,iter : ${products}"
-                th:class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}">
+                th:class="${iter.even ? 'lightBlue' : 'white'}">
                 <td>
                     <img th:src="@{|/static/${@environment.getProperty('productImagePath')}/${product['name']}.png|}"
                          th:alt-title="${product['name']}">

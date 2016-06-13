@@ -27,17 +27,24 @@ public class CartController {
     @RequestMapping(value = "/viewCart", method = RequestMethod.GET)
     public String viewCart(Model model, @RequestParam Optional<Boolean> clear) {
         //we have setted cart as session attribute and can access it from model
-        if (clear.isPresent() && clear.get()) {
-            if (model.containsAttribute("cart")) {
-                ShoppingCart cart = (ShoppingCart) model.asMap().get("cart");
+        ShoppingCart cart;
+        if (model.containsAttribute("cart")) {
+            if (clear.isPresent() && clear.get()) {
+                cart = (ShoppingCart) model.asMap().get("cart");
                 cart.clear();
             }
+        } else {
+            cart = new ShoppingCart();
+            model.addAttribute("cart", cart);
         }
         return "view/cart";
     }
 
     @RequestMapping(value = "/updateCart", method = RequestMethod.POST)
-    public String updateCart() {
+    public String updateCart(Model model, @RequestParam Long productId, @RequestParam Integer quantity) {
+        Product product = productService.retrieveProductById(productId);
+        ShoppingCart cart = (ShoppingCart) model.asMap().get("cart");;
+        cart.update(product, quantity);
         return "view/cart";
     }
 
@@ -52,6 +59,6 @@ public class CartController {
         }
         Product product = productService.retrieveProductById(productId);
         cart.addItem(product);
-        return "redirect:viewCart";
+        return "redirect:category";
     }
 }

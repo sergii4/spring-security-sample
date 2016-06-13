@@ -22,7 +22,7 @@ import java.util.Optional;
  */
 @Controller
 @RequestMapping("/category")
-@SessionAttributes({"categories", "selectedCategory", "products"})
+@SessionAttributes({"categories", "selectedCategory", "products", "cart"})
 public class CategoryController {
 
     @Autowired

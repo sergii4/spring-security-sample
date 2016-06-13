@@ -61,18 +61,12 @@ public class ShoppingCart {
      * is the given quantity, the <code>ShoppingCartItem</code> is removed
      * from the <code>ShoppingCart</code>'s <code>items</code> list.
      *
-     * @param product the <code>Product</code> that defines the type of shopping com.getman.cart item
+     * @param product  the <code>Product</code> that defines the type of shopping com.getman.cart item
      * @param quantity the number which the <code>ShoppingCartItem</code> is updated to
      * @see ShoppingCartItem
      */
-    public synchronized void update(Product product, String quantity) {
-
-        short qty = -1;
-
-        // cast quantity as short
-        qty = Short.parseShort(quantity);
-
-        if (qty >= 0) {
+    public synchronized void update(Product product, int quantity) {
+        if (quantity >= 0) {
 
             ShoppingCartItem item = null;
 
@@ -80,9 +74,9 @@ public class ShoppingCart {
 
                 if (scItem.getProduct().getId() == product.getId()) {
 
-                    if (qty != 0) {
+                    if (quantity != 0) {
                         // set item quantity to new value
-                        scItem.setQuantity(qty);
+                        scItem.setQuantity(quantity);
                     } else {
                         // if quantity equals 0, save item and break
                         item = scItem;

@@ -33,9 +33,13 @@ public class CheckoutController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String checkout(Model model) {
+        ShoppingCart cart;
         if (model.containsAttribute("cart")) {
-            ShoppingCart cart = (ShoppingCart) model.asMap().get("cart");
+            cart = (ShoppingCart) model.asMap().get("cart");
             cart.calculateTotal(surcharge);
+        } else {
+            cart = new ShoppingCart();
+            model.addAttribute("cart", cart);
         }
         return "view/checkout";
     }

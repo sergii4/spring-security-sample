@@ -17,7 +17,7 @@ import com.getman.domain.entity.Product;
 public class ShoppingCartItem {
 
     Product product;
-    short quantity;
+    int quantity;
 
     public ShoppingCartItem(Product product) {
         this.product = product;
@@ -28,11 +28,11 @@ public class ShoppingCartItem {
         return product;
     }
 
-    public short getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(short quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
