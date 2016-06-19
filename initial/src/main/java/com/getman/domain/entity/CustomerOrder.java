@@ -33,30 +33,14 @@ import javax.persistence.TemporalType;
  * @author tgiunipero
  */
 @Entity
-@Table(name = "customer_order")
-@NamedQueries({
-    @NamedQuery(name = "CustomerOrder.findAll", query = "SELECT c FROM CustomerOrder c"),
-    @NamedQuery(name = "CustomerOrder.findById", query = "SELECT c FROM CustomerOrder c WHERE c.id = :id"),
-    @NamedQuery(name = "CustomerOrder.findByCustomer", query = "SELECT c FROM CustomerOrder c WHERE c.customer = :customer"), // manually created
-    @NamedQuery(name = "CustomerOrder.findByAmount", query = "SELECT c FROM CustomerOrder c WHERE c.amount = :amount"),
-    @NamedQuery(name = "CustomerOrder.findByDateCreated", query = "SELECT c FROM CustomerOrder c WHERE c.dateCreated = :dateCreated"),
-    @NamedQuery(name = "CustomerOrder.findByConfirmationNumber", query = "SELECT c FROM CustomerOrder c WHERE c.confirmationNumber = :confirmationNumber")})
 public class CustomerOrder implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
-    @Basic(optional = false)
-    @Column(name = "amount")
+    private Long id;
     private BigDecimal amount;
-    @Basic(optional = false)
-    @Column(name = "date_created")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
-    @Basic(optional = false)
-    @Column(name = "confirmation_number")
     private int confirmationNumber;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerOrder")
     private Collection<OrderedProduct> orderedProductCollection;
@@ -67,22 +51,22 @@ public class CustomerOrder implements Serializable {
     public CustomerOrder() {
     }
 
-    public CustomerOrder(Integer id) {
+    public CustomerOrder(Long id) {
         this.id = id;
     }
 
-    public CustomerOrder(Integer id, BigDecimal amount, Date dateCreated, int confirmationNumber) {
+    public CustomerOrder(Long id, BigDecimal amount, Date dateCreated, int confirmationNumber) {
         this.id = id;
         this.amount = amount;
         this.dateCreated = dateCreated;
         this.confirmationNumber = confirmationNumber;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

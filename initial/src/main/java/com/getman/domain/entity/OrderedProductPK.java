@@ -21,40 +21,40 @@ import javax.persistence.Embeddable;
 public class OrderedProductPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "customer_order_id")
-    private int customerOrderId;
+    private Long customerOrderId;
     @Basic(optional = false)
     @Column(name = "product_id")
-    private int productId;
+    private Long productId;
 
     public OrderedProductPK() {
     }
 
-    public OrderedProductPK(int customerOrderId, int productId) {
+    public OrderedProductPK(Long customerOrderId, Long productId) {
         this.customerOrderId = customerOrderId;
         this.productId = productId;
     }
 
-    public int getCustomerOrderId() {
+    public Long getCustomerOrderId() {
         return customerOrderId;
     }
 
-    public void setCustomerOrderId(int customerOrderId) {
+    public void setCustomerOrderId(Long customerOrderId) {
         this.customerOrderId = customerOrderId;
     }
 
-    public int getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) customerOrderId;
-        hash += (int) productId;
+        hash += (Long) customerOrderId;
+        hash += (Long) productId;
         return hash;
     }
 

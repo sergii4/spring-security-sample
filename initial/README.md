@@ -7,21 +7,22 @@
     - [x] Bug with cart
     - [x] Bug with post adding product
     - [ ] Fix euro index
-    - [ ] checkout page 
-    - [ ] confirmation page 
-    - [ ] bug with null cart
+    - [x] checkout page 
+    - [x] confirmation page 
+    - [x] bug with null cart
     - [ ] hide all message to properties file
     - [x] update cart
 - [x] Use Spring MVC
 - [ ] Session support
     - [x] save attributes to session
     - [ ] session timeout
-    - [ ] Order manager
+    - [x] Order manager
 - [ ] Test Coverage
     - [ ] controller level 
     - [ ] service level 
     - [ ] repository level 
-
+- [ ] Security 
+    - [ ]
 ## Technology basis
 * Spring Boot as microservice framework
 * Spring MVC as web framework

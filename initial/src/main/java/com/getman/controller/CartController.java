@@ -43,7 +43,7 @@ public class CartController {
     @RequestMapping(value = "/updateCart", method = RequestMethod.POST)
     public String updateCart(Model model, @RequestParam Long productId, @RequestParam Integer quantity) {
         Product product = productService.retrieveProductById(productId);
-        ShoppingCart cart = (ShoppingCart) model.asMap().get("cart");;
+        ShoppingCart cart = (ShoppingCart) model.asMap().get("cart");
         cart.update(product, quantity);
         return "view/cart";
     }

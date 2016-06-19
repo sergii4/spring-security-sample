@@ -24,22 +24,17 @@ import javax.persistence.Table;
  * @author tgiunipero
  */
 @Entity
-@Table(name = "ordered_product")
-@NamedQueries({
-    @NamedQuery(name = "OrderedProduct.findAll", query = "SELECT o FROM OrderedProduct o"),
-    @NamedQuery(name = "OrderedProduct.findByCustomerOrderId", query = "SELECT o FROM OrderedProduct o WHERE o.orderedProductPK.customerOrderId = :customerOrderId"),
-    @NamedQuery(name = "OrderedProduct.findByProductId", query = "SELECT o FROM OrderedProduct o WHERE o.orderedProductPK.productId = :productId"),
-    @NamedQuery(name = "OrderedProduct.findByQuantity", query = "SELECT o FROM OrderedProduct o WHERE o.quantity = :quantity")})
 public class OrderedProduct implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected OrderedProductPK orderedProductPK;
-    @Basic(optional = false)
     @Column(name = "quantity")
-    private short quantity;
+
+    private int quantity;
     @JoinColumn(name = "product_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Product product;
+
     @JoinColumn(name = "customer_order_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private CustomerOrder customerOrder;
@@ -56,7 +51,7 @@ public class OrderedProduct implements Serializable {
         this.quantity = quantity;
     }
 
-    public OrderedProduct(int customerOrderId, int productId) {
+    public OrderedProduct(long customerOrderId, long productId) {
         this.orderedProductPK = new OrderedProductPK(customerOrderId, productId);
     }
 
@@ -68,11 +63,11 @@ public class OrderedProduct implements Serializable {
         this.orderedProductPK = orderedProductPK;
     }
 
-    public short getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(short quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
