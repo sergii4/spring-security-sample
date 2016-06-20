@@ -17,8 +17,7 @@ then you will need to manually provide the Spring Security configuration.
 
 ## Simple Security Configuration
 
-```
-java 
+```java 
 
 package spitter.config;
 import org.springframework.context.annotation.Configuration;
