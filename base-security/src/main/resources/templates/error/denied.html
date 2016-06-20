@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="#{title.error.denied}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/css/bootstrap.min.css" th:href="@{/static/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/css/styles.css" th:href="@{/static/css/styles.css}"/>
+</head>
+
+<body>
+
+<div class="jumbotron" id="holder">
+    <h2 th:text="${#ctx['javax.servlet.error.message']}"/>
+</div>
+
+</body>
+
+</html>

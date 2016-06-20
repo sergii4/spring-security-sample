@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -31,44 +33,33 @@ import javax.persistence.TemporalType;
  * @author tgiunipero
  */
 @Entity
-public class Product implements Serializable {
+public class CustomerOrder implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String name;
-
-    private BigDecimal price;
-
-    private String description;
-
+    private BigDecimal amount;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdate;
-
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Category category;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private Date dateCreated;
+    private int confirmationNumber;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerOrder")
     private Collection<OrderedProduct> orderedProductCollection;
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Customer customer;
 
-    public Product() {
+    public CustomerOrder() {
     }
 
-    public Product(Long id) {
+    public CustomerOrder(Long id) {
         this.id = id;
     }
 
-    public Product(Long id, String name, BigDecimal price, Date lastUpdate) {
+    public CustomerOrder(Long id, BigDecimal amount, Date dateCreated, int confirmationNumber) {
         this.id = id;
-        this.name = name;
-        this.price = price;
-        this.lastUpdate = lastUpdate;
-    }
-
-    public Product(String name) {
-        this.name = name;
+        this.amount = amount;
+        this.dateCreated = dateCreated;
+        this.confirmationNumber = confirmationNumber;
     }
 
     public Long getId() {
@@ -79,36 +70,28 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public Date getDateCreated() {
+        return dateCreated;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
-    public Date getLastUpdate() {
-        return lastUpdate;
+    public int getConfirmationNumber() {
+        return confirmationNumber;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setConfirmationNumber(int confirmationNumber) {
+        this.confirmationNumber = confirmationNumber;
     }
 
     public Collection<OrderedProduct> getOrderedProductCollection() {
@@ -117,6 +100,14 @@ public class Product implements Serializable {
 
     public void setOrderedProductCollection(Collection<OrderedProduct> orderedProductCollection) {
         this.orderedProductCollection = orderedProductCollection;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
@@ -129,10 +120,10 @@ public class Product implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Product)) {
+        if (!(object instanceof CustomerOrder)) {
             return false;
         }
-        Product other = (Product) object;
+        CustomerOrder other = (CustomerOrder) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -141,14 +132,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product[id=" + id + "]";
+        return "CustomerOrder[id=" + id + "]";
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

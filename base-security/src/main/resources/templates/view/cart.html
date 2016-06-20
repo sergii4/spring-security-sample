@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="#{title.index}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/css/styles.css" th:href="@{/static/css/affablebean.css}"/>
+</head>
+
+<body>
+
+<div id="main">
+
+    <div th:replace="fragments/header :: header">[Static.proto] ...</div>
+
+    <div id="singleColumn">
+
+        <div th:if="${cart['numberOfItems'] > 1}"> <!-- if customer is anonymous-->
+            <p th:text="${'Your shopping cart contains ' + cart['numberOfItems'] + ' items.'}"></p>
+        </div>
+
+        <div th:if="${cart['numberOfItems'] == 1}"> <!-- if customer is not anonymous(logged in)-->
+            <p th:text="${'Your shopping cart contains ' + cart['numberOfItems'] + ' item.'}"></p>
+        </div>
+
+        <div id="actionBar">
+            <ul>
+                <!-- clear cart widget -->
+                <li th:with="value='/viewCart?clear=true'">
+                    <a th:href="@{${value}}" class="bubble hMargin">clear cart</a>
+                </li>
+
+                <!-- continue shopping widget -->
+                <li th:with="value=${selectedCategory != null ? '/category' : '/'}">
+                    <a th:href="@{${value}}" class="bubble hMargin">continue shopping</a>
+                </li>
+
+
+                <!-- checkout widget -->
+                <li th:if="${cart['numberOfItems'] > 0}"> <!-- if customer is anonymous-->
+                    <a th:href="@{/checkout}" class="bubble hMargin">proceed to checkout &#x279f;</a>
+                </li>
+            </ul>
+        </div>
+
+        <div th:if="${cart['numberOfItems'] > 0}">
+            <h4 id="subtotal" th:text="|subtotal: &euro; ${cart['subtotal']}|"></h4>
+
+            <table id="cartTable">
+
+                <tr class="header">
+                    <th>product</th>
+                    <th>name</th>
+                    <th>price</th>
+                    <th>quantity</th>
+                </tr>
+
+                <tr th:each="cartItem, iter : ${cart['items']}"
+                    th:with="product=${cartItem['product']}"
+                    th:class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}" >
+                    <td>
+                        <img th:src="@{|/static/${@environment.getProperty('productImagePath')}/${product['name']}.png|}"
+                             th:alt-title="${product['name']}">
+                    </td>
+
+                    <td th:text="${product['name']}">
+                        [ product name ]</td>
+
+                    <td th:text="${'&euro; ' + cartItem['total']}">
+
+                       <br>
+                          <span class="smallText" th:utext="|( &euro; ${product['price']} / unit )|"></span>
+                      </td>
+
+                      <td>
+                          <form th:action="@{/updateCart}" method="post">
+                              <input type="hidden"
+                                     name="productId"
+                                     th:value="${product['id']}">
+                              <input type="text"
+                                     maxlength="2"
+                                     size="2"
+                                     th:value="${cartItem['quantity']}"
+                                     name="quantity"
+                                     style="margin:5px">
+                              <input type="submit"
+                                     name="submit"
+                                     th:value="update">
+                          </form>
+                      </td>
+                </tr>
+
+
+            </table>
+
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer">[Static.proto] ...</div>
+</div>
+
+</body>
+
+</html>

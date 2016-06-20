@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="#{title.index}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/css/styles.css" th:href="@{/static/css/affablebean.css}"/>
+</head>
+
+<body>
+
+<div id="main">
+
+    <div th:replace="fragments/header :: header">[Static.proto] ...</div>
+
+    <div id="indexLeftColumn">
+        <div id="welcomeText">
+            <p style="font-size: larger">Welcome to the online home of the Affable Bean Green Grocer.</p>
+
+            <p>Enjoy browsing and learning more about our unique home delivery
+                service bringing you fresh organic produce, dairy, meats, breads
+                and other delicious and healthy items to your doorstep.</p>
+        </div>
+    </div>
+
+    <div id="indexRightColumn">
+        <div class="categoryBox" th:each="category,iterStat : ${application.categories}">
+            <a href="view/category.html" th:href="@{|/category?id=${category['id']}}">
+                <span class="categoryLabelText" th:text="${category['name']}"></span>
+                <img th:src="@{|/static/${@environment.getProperty('categoryImagePath')}/${category['name']}.jpg|}"
+                     th:alt-title="${category['name']}">
+            </a>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer">[Static.proto] ...</div>
+</div>
+
+</body>
+
+</html>

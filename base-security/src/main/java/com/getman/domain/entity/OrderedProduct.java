@@ -28,10 +28,9 @@ public class OrderedProduct implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected OrderedProductPK orderedProductPK;
-
     @Column(name = "quantity")
-    private int quantity;
 
+    private int quantity;
     @JoinColumn(name = "product_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Product product;

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="#{title.login}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8" />
+</head>
+
+<body onload="document.loginform.username.focus();">
+    <div th:replace="admin/fragments/header :: header">[Static.proto] ...</div>
+    <div class="container">
+        <div class="content">
+            <p th:if="${param.logout}" class="alert alert-info" th:text="#{msg.login.logout}">You have
+                been logged out</p>
+
+            <p th:if="${param.error}" class="alert alert-danger" th:text="#{msg.login.login_error}">No
+                such user, please try again</p>
+
+            <h2 th:text="#{lbl.login.login_header}">Login with Username and Password</h2>
+
+            <form name="loginform" th:action="@{/login}" action="/login" method="POST">
+                <fieldset id="loginBox">
+                    <input type="text" name="username" value="" placeholder="Username"/>
+                    <input type="password" name="password" placeholder="Password"/>
+                </fieldset>
+                <input type="submit" id="login" value="Login" class="btn btn-primary"/>
+            </form>
+        </div>
+    </div>
+    <div th:replace="admin/fragments/footer :: footer">[Static.proto] ...</div>
+</body>
+</html>

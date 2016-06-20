@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="#{title.category}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/css/styles.css" th:href="@{/static/css/affablebean.css}"/>
+</head>
+
+<body>
+
+<div id="main">
+
+    <div th:replace="fragments/header :: header">[Static.proto] ...</div>
+
+
+    <div id="categoryLeftColumn">
+        <div th:each="category,iterStat : ${application.categories}" >
+            <a th:href="@{|/category?id=${category['id']}}" class="categoryButton"
+               th:id="${category['id'] == selectedCategory['id'] ? 'selectedCategory' : ''}">
+                <span class="categoryText" th:text="${category['name']}"></span>
+            </a>
+        </div>
+    </div>
+
+    <div id="categoryRightColumn">
+        <p id="categoryTitle" th:text="${selectedCategory['name']}">[ selected category ]</p>
+        <table id="productTable">
+            <tr th:each="product,iter : ${products}"
+                th:class="${iter.even ? 'lightBlue' : 'white'}">
+                <td>
+                    <img th:src="@{|/static/${@environment.getProperty('productImagePath')}/${product['name']}.png|}"
+                         th:alt-title="${product['name']}">
+                </td>
+                <td th:text="${product['name']}">
+                    [ product name ]
+                    <br>
+                    <span class="smallText" th:text="${product['description']}">[ product description ]</span>
+                </td>
+                <td th:text="${product['price']}">[ price ]</td>
+                <td>
+                    <form th:action="@{/addToCart}" action="/viewCart" method="post">
+                        <input type="hidden"
+                               th:name="productId"
+                               th:value="${product['id']}">
+                        <input type="submit"
+                               value="add to cart">
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer">[Static.proto] ...</div>
+</div>
+
+</body>
+
+</html>
+
