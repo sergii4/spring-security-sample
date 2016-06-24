@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../css/affablebean.css">
-    <link rel="shortcut icon" href="../img/favicon.ico">
+    <title>The Affable Bean :: Admin Console</title>
+</head>
+<body>
 
-    <script src="../js/jquery-1.4.2.js" type="text/javascript"></script>
-
+<footer th:fragment="header" id="header" class="alt">
     <script type="text/javascript">
         $(document).ready(function () {
             $('tr.tableRow').hover(
@@ -20,11 +20,6 @@
         });
     </script>
 
-    <title>The Affable Bean :: Admin Console</title>
-</head>
-<body>
-
-<footer th:fragment="header" id="header" class="alt">
     <div id="widgetBar">
 
         <a href="<c:url value='../index.html'/>">

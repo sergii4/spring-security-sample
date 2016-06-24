@@ -31,24 +31,24 @@ public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String name;
     private String email;
     private String phone;
     private String address;
     private String cityRegion;
     private String ccNumber;
-    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    private Collection<CustomerOrder> customerOrderCollection;*/
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Collection<CustomerOrder> customerOrderCollection;
 
     public Customer() {
     }
 
-    public Customer(Integer id) {
+    public Customer(Long id) {
         this.id = id;
     }
 
-    public Customer(Integer id, String name, String email, String phone, String address, String cityRegion, String ccNumber) {
+    public Customer(Long id, String name, String email, String phone, String address, String cityRegion, String ccNumber) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -58,11 +58,11 @@ public class Customer implements Serializable {
         this.ccNumber = ccNumber;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -114,13 +114,13 @@ public class Customer implements Serializable {
         this.ccNumber = ccNumber;
     }
 
-    /*public Collection<CustomerOrder> getCustomerOrderCollection() {
+    public Collection<CustomerOrder> getCustomerOrderCollection() {
         return customerOrderCollection;
     }
 
     public void setCustomerOrderCollection(Collection<CustomerOrder> customerOrderCollection) {
         this.customerOrderCollection = customerOrderCollection;
-    }*/
+    }
 
     @Override
     public int hashCode() {

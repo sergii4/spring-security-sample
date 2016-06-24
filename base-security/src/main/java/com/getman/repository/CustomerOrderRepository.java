@@ -12,8 +12,8 @@ import java.util.Date;
  * @author Sergii Getman
  */
 public interface CustomerOrderRepository extends CrudRepository<CustomerOrder, Long> {
-    Iterable<OrderedProduct> findByCustomer(Customer customer);
-    Iterable<OrderedProduct> findByAmount(BigDecimal amount);
-    Iterable<OrderedProduct> findByDateCreated(Date dateCreated);
-    Iterable<OrderedProduct> findByConfirmationNumber(int confirmationNumber);
+    Iterable<CustomerOrder> findByCustomer(Customer customer);
+    Iterable<CustomerOrder> findByAmount(BigDecimal amount);
+    Iterable<CustomerOrder> findByDateCreated(Date dateCreated);
+    Iterable<CustomerOrder> findByConfirmationNumber(int confirmationNumber);
 }
