@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 /**
  * {@link UserDetailsService} implementation which handles also roles permissions.
  */
-@Component("userDetailsService")
+@Component
 public class PermissionCentricUserDetailsService implements UserDetailsService {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -31,7 +31,6 @@ public class PermissionCentricUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    @Transactional
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Authenticating {}", login);
         String lcLogin = login.toLowerCase();

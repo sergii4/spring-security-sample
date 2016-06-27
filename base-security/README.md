@@ -40,6 +40,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 ```
 
-
+[Russian Tutorial](http://developdevelop.blogspot.com/2016/06/spring-security.html)
 
 
