@@ -5,6 +5,7 @@ import com.getman.domain.entity.CustomerOrder;
 import com.getman.repository.CustomerOrderRepository;
 import com.getman.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,7 @@ public class AdminController {
         return "admin/index";
     }
 
+    @PreAuthorize("@securityUtils.hasPermission('VIEW_CUSTOMERS')")
     @RequestMapping(value = "/viewCustomers",method = RequestMethod.GET)
     public String viewCustomers(Model model) {
         customerList = customerRepository.findAll();
@@ -46,6 +48,7 @@ public class AdminController {
         return "admin/index";
     }
 
+    @PreAuthorize("@securityUtils.hasPermission('VIEW_CUSTOMERS')")
     @RequestMapping(value = "/customerRecord",method = RequestMethod.GET)
     public String viewCustomerRecord(Model model, @RequestParam Optional<Long> id) {
         if (id.isPresent()) {

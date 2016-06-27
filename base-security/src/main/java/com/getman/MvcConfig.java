@@ -1,5 +1,6 @@
 package com.getman;
 
+import com.getman.security.interceptor.SecurityInterceptor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties;
@@ -8,6 +9,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -77,6 +79,12 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
                 .addResourceHandler(STATIC_RESOURCES_PATTERN)
                 .addResourceLocations("classpath:/static/");
     }
+
+    /*@Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        super.addInterceptors(registry);
+        registry.addInterceptor(new SecurityInterceptor());
+    }*/
 
     @Bean
     public ThymeleafProperties properties() {

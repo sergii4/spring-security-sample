@@ -1,12 +1,18 @@
 package com.getman;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -15,10 +21,28 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@ComponentScan(basePackages = {"com.getman.security"})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     DataSource dataSource;
+
+    @Autowired // See com.security.service.PermissionCentricUserDetailsService
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder)
+            throws Exception {
+        authenticationManagerBuilder
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     /*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -28,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }*/
 
-    @Override
+    /*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery(
@@ -39,17 +63,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 + "(SELECT role_id FROM jt_roles where user_id in "
                                 + "(SELECT id FROM users where name = ?) )")
                 .passwordEncoder(new BCryptPasswordEncoder());
-    }
+    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/admin/**").authenticated()
+                .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                //.antMatchers("/admin/**").authenticated()
                     .and()
                 .formLogin().loginPage("/login").failureUrl("/login?error")
                     .and()
-                .httpBasic();
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout");
     }
 
     /*@Override
